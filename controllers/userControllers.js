@@ -21,7 +21,7 @@ module.exports = {
       })
   },
   
-  postUsers: (req, res) => {
+  postUser: (req, res) => {
     const Author = new UserModel({
         _id: new mongoose.Types.ObjectId(),
         firstname: req.body.firstname,

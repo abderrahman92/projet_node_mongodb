@@ -8,7 +8,8 @@ const articleControllers = require('../controllers/articleControllers')
 /* GET all users page. */
 router.get('/users', userControllers.getUsers);
 /* POST  users page. */
-router.post('/users', userControllers.postUsers);
+router.post('/users', userControllers.postUser);
+
 
 
 /* GET all articles Methode */
@@ -16,11 +17,11 @@ router.get('/', articleControllers.getArticles);
 /* GET  article by ->id. Methode */
 router.get('/article/:id', articleControllers.getArticle_info)
 /* POST article Methode. */
-router.post('/article', articleControllers.postArticles);
+router.post('/article', articleControllers.postArticle);
 /* DELETE article Methode. */
 router.get('/delete/:id', articleControllers.deleteArticle);
 /* EDITE article Methode. */
-router.patch('/edite/:id', articleControllers.editArticle);
+router.put('/edite/:id', articleControllers.editArticle);
 
 
 module.exports = router;

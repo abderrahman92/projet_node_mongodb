@@ -19,7 +19,8 @@ module.exports = {
         })
       },
       getArticle_info: (req, res) => {
-        ArticleModel.find({_id:req.params.id}, (err, articles) => {
+        ArticleModel.findById(req.params.id, (err, articles) => {
+          
             if (err) {
                 res.status(500).send(err)
             }
@@ -27,7 +28,9 @@ module.exports = {
                 if (!articles) {
                     res.status(404).send('Aucun article trouvé')
                 }
-                UserModel.find({}, (err, user_id) => {
+                const id = articles.user_id
+                console.log(id)
+                UserModel.findById(id, (err, user_id) => {
                     if (err) {
                         res.status(500).render('error', {
                             message: 'Error when getting things',
@@ -46,7 +49,7 @@ module.exports = {
         
     },
 
-    postArticles: (req, res) => {
+    postArticle: (req, res) => {
       UserModel.findById(req.body.user, (err, user) => {
           if (err) {
               res.status(500).send(err)
@@ -81,13 +84,21 @@ module.exports = {
       })
     },
     editArticle: (req, res) => {
-      ArticleModel.findByIdAndUpdate({ _id: req.params.id},{description:'update'}, (err, things) => {
+      ArticleModel.findByIdAndUpdate({ _id: req.params.id},{description:req.body.description}, (err, article) => {
         if (err) {
-          res.status(500).render('error', {
+          res.status(500).render('error', { 
               error: err
           })
       } else {
-          res.status(200).redirect('/')
+        article.save((err, article) => {
+          if (err) {
+              res.status(500).render('error', {
+                  error: err
+              })
+          } else {
+              res.status(200).redirect('/')
+          }
+      })
       }
       })
     } 
