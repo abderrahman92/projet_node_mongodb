@@ -11,25 +11,32 @@
         <%- include('./navbar.ejs'); %>
     </header>
    
-     
+          <% if (articles.length > 0) { %>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><%= articles.name %></h5> 
-                                <p class="card-text"><%= articles.description %></p>
-                          
-                                      <p class="card-text"><%= user_id.firstname %></p>
-           
-
+                                <p class="card-text"><%= articles.name %></p>
+                                <% if (user_id.length > 0) { %>
+                                  
+                                      <p class="card-text"><%= user_id.firstname%></p>
+                  
+                                <% } else { %> 
+                                  <p class="card-text">Article sans User</p>  
+                                <% } %> 
                                 <a href="/article/<%=articles._id%>" class="btn btn-primary">more details</a>
                             </div>
                         </div>
                     </div>
                 </div>
-        
+          <% } else { %>
+            <p class="card-text">Aucun utilisateur</p>
+          <% } %>
 
-     
-    </body>
+
+ 
+          
+
   </html>
   

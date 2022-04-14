@@ -4,7 +4,7 @@ const { UserModel } = require('../models/Article')
 
 module.exports = {
 
-   
+   // GET USERS FUNCTION
   getUsers: (req, res) => {
       UserModel.find({}, (err, users) => {
           if (err) {
@@ -20,7 +20,7 @@ module.exports = {
           }
       })
   },
-  
+  //POST USER FUNCTION
   postUser: (req, res) => {
     const Author = new UserModel({
         _id: new mongoose.Types.ObjectId(),
@@ -39,6 +39,8 @@ module.exports = {
         }
     })
   },
+
+  //DELETE USER FONCTION
   deleteUser: (req, res) => {
     UserModel.deleteMany({ _id: req.params.id}, (err, things) => {
       if (err) {
@@ -50,24 +52,26 @@ module.exports = {
     }
     })
   },
+  
+  //   //EDITE ARTICLE CHAMP(DESCRIPTION)
   editUser: (req, res) => {
-    UserModel.findByIdAndUpdate({ _id: req.params.id},{firstname:req.body.firstname}, (err, users) => {
-      if (err) {
-        res.status(500).render('error', { 
-            error: err
+        UserModel.findByIdAndUpdate({ _id: req.params.id},{firstname:req.body.firstname}, (err, users) => {
+            if (err) {
+              res.status(500).render('error', { 
+                  error: err
+              })
+          } else {
+            users.save((err, article) => {
+                  if (err) {
+                      res.status(500).render('error', {
+                          error: err
+                      })
+                  } else {
+                      res.status(200).redirect('/')
+                  } 
+              })
+            }
         })
-    } else {
-      users.save((err, article) => {
-        if (err) {
-            res.status(500).render('error', {
-                error: err
-            })
-        } else {
-            res.status(200).redirect('/')
-        }
-    })
-    }
-    })
-  } 
-   
+  }
+ 
 }

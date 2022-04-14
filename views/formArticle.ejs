@@ -1,0 +1,26 @@
+<form method="post"action="/">
+    <div class="form-group">
+      <label for="exampleInputEmail1">name</label>
+      <input name="name" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">description</label>
+      <input name="description" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">age</label>
+      <input name="age" type="text" class="form-control" >
+    </div>
+
+
+       
+      <select class="form-select" aria-label="Default select example" name="test" >
+        <% user_id.map( user_id => { %>
+        <option value="<%=user_id._id%>" name="option">  <%=user_id.firstname %></option>
+      
+        <% }) %>
+      </select>
+             
+  
+    <button type="submit" class="btn btn-success">ajouter</button>
+</form>

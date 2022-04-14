@@ -30,7 +30,7 @@ const articleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'userSchema'
     }
-})
+}) 
 
 const UserModel = model('user', userSchema);
 const ArticleModel = model('article', articleSchema);

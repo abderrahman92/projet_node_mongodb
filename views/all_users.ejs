@@ -7,10 +7,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><%= users.firstname %></h5>
-                                <p class="card-text"><%= users.lastname %></p>
+                                <p class="card-text"><%= users.lastename %></p>
                                 <a href="#" class="btn btn-primary"><%= users.age %></a>
-                                <a href="/delete/<%=users._id%>" class="btn btn-danger">supprimer</a>
-                                <a href="/edite/<%=users._id%>" class="btn btn-primary">modifier</a>
+                                <a href="/delete/users/<%=users._id%>" class="btn btn-danger">supprimer</a>
+                                <a href="/edite/users/<%=users._id%>" class="btn btn-primary">modifier</a>
                             </div>
                         </div>
                     </div>

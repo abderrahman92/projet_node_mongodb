@@ -2,23 +2,32 @@ const mongoose = require('mongoose')
 const { ArticleModel,UserModel } = require('../models/Article')
 
 module.exports = {
-
+    //GET ALL ARTICLES
     getArticles: (req, res) => {
       ArticleModel.find({}, (err, articles) => {
         if (err) {
           res.status(500).send(err)
       }
-        else {
-                if (!articles) {
-                    res.status(404).send('Aucun article trouvé')
+     
+          UserModel.find({}, (err, user_id) => {
+              if (err) {
+                  res.status(500).render('error', {
+                      message: 'Error when getting things',
+                      error: err.message
+                  })
+              } else {
+                  res.status(200).render('index', {
+  
+                      articles,
+                      user_id
+                  })
                 }
-                res.status(200).render('index', {
-                  articles
-                })
-            }
-        })
-      },
-      getArticle_info: (req, res) => {
+          })
+      })
+
+    },
+    //GET ARTICLE INFO
+    getArticle_info: (req, res) => {
         ArticleModel.findById(req.params.id, (err, articles) => {
           
             if (err) {
@@ -48,30 +57,28 @@ module.exports = {
         })
         
     },
-
+    //POST ARTICLE
     postArticle: (req, res) => {
-      UserModel.findById(req.body.user, (err, user) => {
-          if (err) {
-              res.status(500).send(err)
-          } else {
-              const article = new ArticleModel({
-                  _id: new mongoose.Types.ObjectId(),
-                  name: req.body.name,
-                  description: req.body.description,
-                  user_id: user.id
-              })
-              article.save((err, article) => {
-                  if (err) {
-                      res.status(500).render('error', {
-                          error: err
-                      })
-                  } else {
-                      res.status(200).redirect('/')
-                  }
-              })
-          }
+      const article = new ArticleModel({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        description: req.body.description,
+        user_id: req.body.test,
+        
       })
+    
+        article.save((err, articles) => {
+            if (err) {
+                res.status(500).render('error', {
+                    error: err
+                })
+            } else {
+              res.status(200).redirect('/')
+            }
+        })
+
     },
+    //DELETE ARTICLE
     deleteArticle: (req, res) => {
       ArticleModel.deleteMany({ _id: req.params.id}, (err, things) => {
         if (err) {
@@ -83,6 +90,7 @@ module.exports = {
       }
       })
     },
+    //EDITE ARTICLE CHAMPS(DESCRIPTION)
     editArticle: (req, res) => {
       ArticleModel.findByIdAndUpdate({ _id: req.params.id},{description:req.body.description}, (err, article) => {
         if (err) {
@@ -90,16 +98,16 @@ module.exports = {
               error: err
           })
       } else {
-        article.save((err, article) => {
-          if (err) {
-              res.status(500).render('error', {
-                  error: err
-              })
-          } else {
-              res.status(200).redirect('/')
-          }
-      })
-      }
+            article.save((err, article) => {
+              if (err) {
+                  res.status(500).render('error', {
+                      error: err
+                  })
+              } else {
+                  res.status(200).redirect('/')
+              }
+          })
+        }
       })
     } 
 
