@@ -9,6 +9,12 @@ const articleControllers = require('../controllers/articleControllers')
 router.get('/users', userControllers.getUsers);
 /* POST  users page. */
 router.post('/users', userControllers.postUser);
+/* EDITE article Methode. */
+router.put('/edite/:id', userControllers.editUser);
+/* DELETE article Methode. */
+router.get('/delete/:id', userControllers.deleteUser);
+
+
 
 
 

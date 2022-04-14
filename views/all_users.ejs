@@ -9,6 +9,8 @@
                                 <h5 class="card-title"><%= users.firstname %></h5>
                                 <p class="card-text"><%= users.lastname %></p>
                                 <a href="#" class="btn btn-primary"><%= users.age %></a>
+                                <a href="/delete/<%=users._id%>" class="btn btn-danger">supprimer</a>
+                                <a href="/edite/<%=users._id%>" class="btn btn-primary">modifier</a>
                             </div>
                         </div>
                     </div>

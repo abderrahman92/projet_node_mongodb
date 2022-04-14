@@ -39,5 +39,35 @@ module.exports = {
         }
     })
   },
+  deleteUser: (req, res) => {
+    UserModel.deleteMany({ _id: req.params.id}, (err, things) => {
+      if (err) {
+        res.status(500).render('error', {
+            error: err
+        })
+    } else {
+        res.status(200).redirect('/')
+    }
+    })
+  },
+  editUser: (req, res) => {
+    UserModel.findByIdAndUpdate({ _id: req.params.id},{firstname:req.body.firstname}, (err, users) => {
+      if (err) {
+        res.status(500).render('error', { 
+            error: err
+        })
+    } else {
+      users.save((err, article) => {
+        if (err) {
+            res.status(500).render('error', {
+                error: err
+            })
+        } else {
+            res.status(200).redirect('/')
+        }
+    })
+    }
+    })
+  } 
    
 }
