@@ -1,0 +1,25 @@
+
+<div class="row">
+<% if (articles.length > 0) { %>
+  <% articles.map( articles => { %>
+      
+          <div class="col-sm-3">
+              <div class="card">
+                  <div class="card-body">
+                      <h5 class="card-title"><%= articles.name %></h5>
+                      <p class="card-text"><%= articles.description %></p>
+                      <a href="/article/<%=articles._id%>" class="btn btn-success">plus details</a>
+                      <a href="/delete/<%=articles._id%>" class="btn btn-danger">supprimer</a>
+                      <a href="/edite/<%=articles._id%>" class="btn btn-primary">modifier</a>
+                  </div>
+              </div>
+          </div>
+     
+  <% }) %>
+</div>
+<% } else { %>
+  <p class="card-text">Aucun utilisateur</p>
+<% } %>
+
+
+ 
